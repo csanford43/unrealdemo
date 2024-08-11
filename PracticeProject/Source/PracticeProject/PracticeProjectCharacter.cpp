@@ -209,20 +209,20 @@ void APracticeProjectCharacter::UpdateGrapple()
 	//direction = vGrappleLocation - GetActorLocation();
 	direction = GetActorLocation() - vGrappleLocation;
 	//DrawDebugLine(GetWorld(), GetActorLocation(), direction * -2, FColor::Black);
-	FVector velocity = GetVelocity();
-	magnitude = FVector::DotProduct(vGrappleLocation - GetActorLocation(), velocity);
-	magnitude = UKismetMathLibrary::FClamp(magnitude, -150000, 150000);
+	FVector velocity = GetCharacterMovement()->Velocity;
+	magnitude = FVector::DotProduct(direction, velocity);
+	magnitude = UKismetMathLibrary::FClamp(magnitude, -magnitudeClamp, magnitude);
 	//magnitude = direction.Dot(GetCharacterMovement()->Velocity);
-	force = (magnitude > 0.1 || magnitude < 0.1) ? direction.GetSafeNormal() * magnitude : direction.GetSafeNormal();
+	force = (magnitude > .5 || magnitude < -0.5) ? direction.GetSafeNormal() * magnitude : direction.GetSafeNormal();
 	//DrawDebugLine(GetWorld(), GetActorLocation(), vGrappleLocation, FColor::Magenta);
 	
 	// force in the direction of the grapple location
-	GetCharacterMovement()->AddForce(force * -2);
+	GetCharacterMovement()->AddForce(force * 2);
 	//GetCharacterMovement()->AddForce(direction.GetSafeNormal() * 1000);
 	//GetCharacterMovement()->Launch(direction.GetSafeNormal() * 10);
 
 	// force in the direction the character is facing for smoothness
-	GetCharacterMovement()->AddForce(FirstPersonCamera->GetForwardVector() * 1000);
+	//GetCharacterMovement()->AddForce(FirstPersonCamera->GetForwardVector() * 1000);
 		
 	//GetCharacterMovement()->AddForce((vGrappleLocation - GetActorLocation()).GetSafeNormal() * 10000);
 }

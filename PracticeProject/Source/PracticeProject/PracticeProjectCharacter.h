@@ -107,7 +107,7 @@ protected:
 
 	bool bGrappleAttached = false;
 	FVector vGrappleLocation;
-
+	int magnitudeClamp = 175000;
 
 public:
 	/** Returns CameraBoom subobject **/
