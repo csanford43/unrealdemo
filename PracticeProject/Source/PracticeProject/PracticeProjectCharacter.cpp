@@ -198,6 +198,7 @@ void APracticeProjectCharacter::CheckGrapple()
 }
 
 // Function that adds a force when the grappling hook is connected to propel the player towards the connection point
+// TODO: clean comments in this function leftover from testing/adjusting/problem solving the math not giving the expected results
 void APracticeProjectCharacter::UpdateGrapple()
 {
 	// Adjust grapple cable end point
